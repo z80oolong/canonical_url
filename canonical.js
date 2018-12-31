@@ -1,0 +1,51 @@
+/*
+canonical.js -- Append to <link rel="canonical" href="..." /> tag.
+
+Copyright (c) 2018 Z.OOL.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+(function () {
+    var doc    = document;
+    var head   = doc.getElementsByTagName("head")[0];
+    var links  = doc.getElementsByTagName("link");
+    var a_curl = doc.getElementById("canonical_url");
+    var canon  = null;
+
+    for (var i = 0; i < links.length; i++) {
+        if (links[i].rel) {
+            if (links[i].rel.toLowerCase() == "canonical") {
+                if (canon == null) {
+                    canon = links[i];  // <link rel="canonical" ...> タグを１個抽出。
+                } else {
+                    var par = link[i].parentNode;  // 残りの <link rel="canonical" ...> タグは除去。
+                    par.removeChild(link[i]);
+                }
+            }
+        }
+    }
+
+    if (canon == null) {
+        canon = head.createElement("link");  // <link rel="canonical" ...> タグが存在しない場合はこれを生成。
+        canon.setAttribute("rel", "canonical");
+    }
+
+    canon.setAttribute("href", a_curl.href.toString());  // <link rel="canonical" ...> タグに href 属性を付与。
+})();
