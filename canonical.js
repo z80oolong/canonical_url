@@ -1,4 +1,4 @@
-(function () {
+window.addEventListener("load", function () {
     var doc    = document;
     var head   = doc.getElementsByTagName("head")[0];
     var links  = doc.getElementsByTagName("link");
@@ -24,4 +24,4 @@
     }
 
     canon.setAttribute("href", a_curl.href.toString());  // <link rel="canonical" ...> タグに href 属性を付与。
-})();
+});
