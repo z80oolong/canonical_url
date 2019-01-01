@@ -4,7 +4,7 @@ window.onload = function () {
     var links  = doc.getElementsByTagName("link");
     var a_curl = doc.getElementById("canonical_url");
     var canon  = null;
-
+console.log(a_curl.toString());
     for (var i = 0; i < links.length; i++) {
         if (links[i].rel) {
             if (links[i].rel.toLowerCase() == "canonical") {
