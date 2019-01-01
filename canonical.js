@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+window.onload = function () {
     var doc    = document;
     var head   = doc.getElementsByTagName("head")[0];
     var links  = doc.getElementsByTagName("link");
@@ -24,4 +24,4 @@ window.addEventListener("load", function () {
     }
 
     canon.setAttribute("href", a_curl.href.toString());  // <link rel="canonical" ...> タグに href 属性を付与。
-});
+};
