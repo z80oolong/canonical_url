@@ -28,18 +28,18 @@ window.addEventListener("load", function () {
     var doc    = document;
     var head   = doc.getElementsByTagName("head")[0];
     var links  = doc.getElementsByTagName("link");
+    var as     = doc.getElementsByTagName("a");
     var a_curl = doc.getElementById("canonical_url");
+    var c_href = location.href;
     var canon  = null;
 
     for (var i = 0; i < links.length; i++) {
-        if (links[i].rel) {
-            if (links[i].rel.toLowerCase() == "canonical") {
-                if (canon == null) {
-                    canon = links[i];  // <link rel="canonical" ...> タグを１個抽出。
-                } else {
-                    var par = links[i].parentNode;  // 残りの <link rel="canonical" ...> タグは除去。
-                    par.removeChild(links[i]);
-                }
+        if (links[i].rel && (links[i].rel.toLowerCase() == "canonical")) {
+            if (canon == null) {
+                canon = links[i];  // <link rel="canonical" ...> タグを１個抽出。
+            } else {
+                links[i].parentNode.removeChild(links[i]);  // 残りの <link rel="canonical" ...> タグは除去。
+                i--; // 除去したタグ <link rel="canonical" ...> １個分だけ links.length が 1 減少する。
             }
         }
     }
@@ -50,9 +50,25 @@ window.addEventListener("load", function () {
         head.appendChild(canon);
     }
 
-    //  <link rel="canonical" ...> タグに href 属性を付与。
-    // href 属性の値は、ページ中の <a> タブのうち、 id 属性が "canonical_url" であるもののリンク先とする。
-    if (a_curl != null) { 
-        canon.setAttribute("href", a_curl.href.toString());
+    if (a_curl && (a_curl.href.toString() != "")) {
+        // <a href="..." id="canonical_url"> タグの href 属性が空文字列でない場合は、
+        // この href 属性を <link rel="canonical" ...> タグの href 属性とする。
+        c_href = a_curl.href.toString();
+    } else {
+        // <a href="..." id="canonical_url"> タグの href 属性が空文字列の場合は、
+        // <a> タグの中から title 属性が "canonical url" であるものを探す。
+        for (var i = 0; i < as.length; i++) {
+            if (as[i].title && (as[i].title.toLowerCase() == "canonical url")) {
+                if (as[i].href.toString() != "") {
+                    // <a href="..." title="canonical url"> タグの href 属性が空文字列でないもののうち、
+                    // 最初の href 属性を <link rel="canonical" ...> タグの href 属性とする。
+                    c_href = as[i].href.toString();
+                    break;
+				}
+            }
+	    }
     }
+
+    // <link rel="canonical" ...> タグに href 属性を付与する。
+    canon.setAttribute("href", c_href);
 });

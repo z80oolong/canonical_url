@@ -30,6 +30,18 @@
 
 即ち、クロス投稿先となる任意の Web ページ内に id 属性が ```"canonical_url"``` である ```<a href="..." ...>``` タグを埋め込みます。
 
+若しくは以下のように、クロス投稿先となる任意の Web ページ内に title 属性が ```"canonical url" (ここで、 "canonical url" の文字列は大文字・小文字を区別しません)``` である ```<a href="..." ...>``` タグを埋め込んでも構いません。
+
+```
+<!-- ...(略)... -->
+<a href="https://www.example.com/canonical.html" title="Canonical URL">クロス投稿元のリンクです</a> <!-- ここに、 https://www.example.com/canonical.html は、クロス投稿元の URL -->
+<!-- ...(略)... -->
+```
+
+この場合は、title 属性が ```"canonical url"``` である ```<a title="canonical url"...>``` のうち一番最初に出現する href 属性に示された URL が、クロス投稿元となる Web ページ等の URL となります。
+
+また、 ```<a href="..." ...>``` タグにおいて、 id 属性と title 属性を持つものが混在する場合は、 id 属性が ```"canonical_url"``` である ```<a href="..." ...>``` タグの href 属性が優先されます。
+
 以上の設定等を行った後、各種ブラウザ等で "Web 開発" の設定から "インスペクタ" の画面を表示せることにより、 ```<head>``` 要素内に ```<link rel="canonical" ...>``` が埋め込まれているのを確認します。
 
 ## 注意点
