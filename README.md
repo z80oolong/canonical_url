@@ -14,7 +14,7 @@
 
 ```
 <!-- ...(略)... -->
-<script text="text/javascript" src="https://github.com/z80oolong/canonical_url/releases/download/v0.0.1/canonical.js"></script>
+<script text="text/javascript" src="https://github.com/z80oolong/canonical_url/releases/download/v0.0.2/canonical.js"></script>
 <!-- ...(略)... -->
 ```
 
@@ -30,7 +30,7 @@
 
 即ち、クロス投稿先となる任意の Web ページ内に id 属性が ```"canonical_url"``` である ```<a href="..." ...>``` タグを埋め込みます。
 
-若しくは以下のように、クロス投稿先となる任意の Web ページ内に title 属性が ```"canonical url" (ここで、 "canonical url" の文字列は大文字・小文字を区別しません)``` である ```<a href="..." ...>``` タグを埋め込んでも構いません。
+若しくは、クロス投稿先となる任意の Web ページ内に title 属性が ```"canonical url" (ここで、 "canonical url" の文字列は大文字・小文字を区別しません)``` である ```<a href="..." ...>``` タグを以下のような形式で埋め込みます。
 
 ```
 <!-- ...(略)... -->
@@ -38,11 +38,24 @@
 <!-- ...(略)... -->
 ```
 
-この場合は、title 属性が ```"canonical url"``` である ```<a title="canonical url"...>``` のうち一番最初に出現する href 属性に示された URL が、クロス投稿元となる Web ページ等の URL となります。
+なお、上記の形式は、 Markdown 記法では、以下のような形式で埋め込むことが出来ます。
 
-また、 ```<a href="..." ...>``` タグにおいて、 id 属性と title 属性を持つものが混在する場合は、 id 属性が ```"canonical_url"``` である ```<a href="..." ...>``` タグの href 属性が優先されます。
+```
+<!-- ...(略)... -->
+[クロス投稿元のリンクです][CANON]
+
+[CANON]:https://www.exanple.com/canonical.html "Canonical URL"
+
+<!-- ここに、 https://www.example.com/canonical.html は、クロス投稿元の URL -->
+<!-- ...(略)... -->
+```
 
 以上の設定等を行った後、各種ブラウザ等で "Web 開発" の設定から "インスペクタ" の画面を表示せることにより、 ```<head>``` 要素内に ```<link rel="canonical" ...>``` が埋め込まれているのを確認します。
+
+なお、ここで ```<link rel="canonical" ...>``` タグに付与される href 属性の値は、以下の順序に従って決定されます。
+
+- ページ内に存在する全ての ```<a>``` タグのうち、 id 属性の値が ```"canonical_url"``` である ```<a>``` タグの href 属性の値。
+- 上記の値が存在しない場合は、ページ内に存在する全ての ```<a>``` タグのうち、 title 属性の値が "canonical url" (大文字・小文字の区別をしない) であるもののうち、最初に href 属性をもつ```<a>``` タグの href 属性の値。
 
 ## 注意点
 
