@@ -3,7 +3,7 @@ canonical.js -- JavaScript for insartion of <link rel="caconical" ...> tag in <h
 ----
 MIT License
 
-Copyright (c) 2018 NAKATSUKA, Yukitaka (mailto:zool@zool.jpn.org)
+Copyright (c) 2019 NAKATSUKA, Yukitaka (mailto:zool@zool.jpn.org)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
